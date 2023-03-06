@@ -1,22 +1,22 @@
 #pragma once
 
+#include <stack>
 #include "../Lexer/lexer.h"
 #include "../Etat/etat.h"
-#include <stack>
 using namespace std;
 
 class Automate {
     
     public:
-        Automate(Lexer * l) : lexer(l), symboleCourant(l->Consulter()) { }
+        Automate(Lexer * l) : lexer(l) { }
         ~Automate() { }
         
         void decalage(Symbole * s, Etat * e);
         void reduction(int n, Symbole * s);
+        void lecture();
 
-    protected:
+    // protected:
         Lexer * lexer;
-        Symbole * symboleCourant;
         stack<Etat *> pileEtats;
         stack<Symbole *> pileSymboles;
 };

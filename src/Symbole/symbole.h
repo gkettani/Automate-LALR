@@ -12,7 +12,7 @@ class Symbole {
       Symbole(int i) : ident(i) {  }
       virtual ~Symbole() { }
       operator int() const { return ident; }
-      virtual void Affiche();
+      virtual void print();
       bool isTerminal() const { return ident<EXPR; }
 
    protected:
@@ -23,7 +23,7 @@ class Entier : public Symbole {
    public:
       Entier(int v) : Symbole(INT), valeur(v) { }
       ~Entier() { }
-      virtual void Affiche();
+      int getValeur() const { return valeur; }
    protected:
       int valeur;
 };

@@ -15,9 +15,10 @@ class Expression : public Symbole {
 class ExpressionCst : public Expression {
     
     public:
-        ExpressionCst(int v) : Expression() { }
+        ExpressionCst(int v) : Expression(), valeur(v) { }
         virtual ~ExpressionCst() { }
-        virtual void Affiche();
+        void print();
+        int eval();
 
     protected:
         int valeur;
@@ -35,20 +36,20 @@ class ExpressionBinaire : public Expression {
         Expression * exprDroite;
 };
 
-class Plus : public ExpressionBinaire {
+class ExpressionPlus : public ExpressionBinaire {
     
     public:
-        Plus(Expression * e1, Expression * e2) : ExpressionBinaire(e1, e2) { }
-        ~Plus() { }
-        virtual void Affiche();
-        virtual int eval();
+        ExpressionPlus(Expression * e1, Expression * e2) : ExpressionBinaire(e1, e2) { }
+        ~ExpressionPlus() { }
+        void print();
+        int eval();
 };
 
-class Mult : public ExpressionBinaire {
+class ExpressionMult : public ExpressionBinaire {
     
     public:
-        Mult(Expression * e1, Expression * e2) : ExpressionBinaire(e1, e2) { }
-        ~Mult() { }
-        virtual void Affiche();
-        virtual int eval();
+        ExpressionMult(Expression * e1, Expression * e2) : ExpressionBinaire(e1, e2) { }
+        ~ExpressionMult() { }
+        void print();
+        int eval();
 };
