@@ -1,5 +1,6 @@
 #include <iostream>
 #include "automate.h"
+#include "../Symbole/expression.h"
 
 void Automate::decalage(Symbole * s, Etat * e) {
     pileEtats.push(e);
@@ -13,24 +14,20 @@ void Automate::reduction(int n, Symbole * s) {
     for (int i = 0; i < n; i++) {
         pileEtats.pop();
     }  
-    // pileSymboles.push(s);
     pileEtats.top()->transition(*this, s);
 }
 
 void Automate::lecture() {
     pileEtats.push(new E0);
 
-    pileEtats.top()->transition(*this, lexer->Consulter());
+    while(!pileEtats.top()->transition(*this, lexer->Consulter())) { }
 
-    pileEtats.top()->transition(*this, lexer->Consulter());
+    Expression *e = (Expression *)pileSymboles.top();
+    cout << e->eval() << endl;
+}
 
-    pileEtats.top()->transition(*this, lexer->Consulter());
-    
-    pileEtats.top()->transition(*this, lexer->Consulter());
-    
-    pileEtats.top()->transition(*this, lexer->Consulter());
 
-    // print the stacks
+void Automate::print() {
     cout << "Etats: ";
     while (!pileEtats.empty()) {
         cout << *pileEtats.top() << " ";
@@ -45,4 +42,3 @@ void Automate::lecture() {
 
     cout << endl;
 }
-

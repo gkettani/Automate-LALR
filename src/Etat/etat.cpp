@@ -232,10 +232,15 @@ bool E9::transition(Automate &a, Symbole * s) {
         case MULT:
             // r4
             break;
-        case CLOSEPAR:
-            // r4
+        case FIN: {
+            a.pileSymboles.pop();
+            Expression *e = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            a.reduction(3, e);
             break;
-        case FIN:
+        }
+        case CLOSEPAR:
             // r4
             break;
         default:

@@ -4,7 +4,7 @@
 
 
 void test() {
-   string chaine("(1+34)*123");
+   string chaine("(123+34)");
 
    Lexer l(chaine);
 
@@ -19,8 +19,9 @@ void test() {
 
 int main(void) {
 
-   Automate a(new Lexer("(1+34)*123"));
+   Automate a(new Lexer("(123+34)"));
    a.lecture();
+   a.print();
    
    return 0;
 }

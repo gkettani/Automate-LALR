@@ -16,9 +16,6 @@ class Etat {
 
         friend ostream & operator <<(ostream &os, const Etat &e);
 
-        friend ostream & operator <<(ostream &os, const Etat *e);
-
-
     protected:
         string name;
 };
