@@ -78,18 +78,24 @@ bool E3::transition(Automate &a, Symbole * s) {
             a.reduction(1, new ExpressionCst(v));
             break;
         }
-        case MULT:
-            // r5
+        case MULT:{
+            int v = ((Entier *) a.pileSymboles.top())->getValeur();
+            a.pileSymboles.pop();
+            a.reduction(1, new ExpressionCst(v));
             break;
+        }
         case CLOSEPAR: {
             int v = ((Entier *) a.pileSymboles.top())->getValeur();
             a.pileSymboles.pop();
             a.reduction(1, new ExpressionCst(v));
             break;
         }
-        case FIN:
-            // r5
+        case FIN:{
+            int v = ((Entier *) a.pileSymboles.top())->getValeur();
+            a.pileSymboles.pop();
+            a.reduction(1, new ExpressionCst(v));
             break;
+        }
         default:
             // gestion erreur
             break;
@@ -162,24 +168,36 @@ bool E6::transition(Automate &a, Symbole * s) {
  */
 bool E7::transition(Automate &a, Symbole * s) {
     switch (*s) {
-        case PLUS:
-            // r2
+        case PLUS: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionPlus(e1, e2));
             break;
+        }
         case MULT:
             a.decalage(s, new E5);
             break;
         case CLOSEPAR: {
-            int v1 = ((Entier *) a.pileSymboles.top())->getValeur();
+            Expression * e1 = (Expression *)a.pileSymboles.top();
             a.pileSymboles.pop();
             a.pileSymboles.pop();
-            int v2 = ((Entier *) a.pileSymboles.top())->getValeur();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
             a.pileSymboles.pop();
-            a.reduction(3, new ExpressionPlus(new ExpressionCst(v1), new ExpressionCst(v2)));
+            a.reduction(3, new ExpressionPlus(e1, e2));
             break;
         }
-        case FIN:
-            // r2
+        case FIN: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionPlus(e1, e2));
             break;
+        }
         default:
             // gestion erreur
             break;
@@ -197,18 +215,42 @@ bool E7::transition(Automate &a, Symbole * s) {
  */
 bool E8::transition(Automate &a, Symbole * s) {
     switch (*s) {
-        case PLUS:
-            // r3
+        case PLUS: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionMult(e1, e2));
             break;
-        case MULT:
-            // r3
+        }
+        case MULT: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionMult(e1, e2));
             break;
-        case CLOSEPAR:
-            // r3
+        }
+        case CLOSEPAR: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionMult(e1, e2));
             break;
-        case FIN:
-            // r3
+        }
+        case FIN: {
+            Expression * e1 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            Expression * e2 = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.reduction(3, new ExpressionMult(e1, e2));
             break;
+        }
         default:
             // gestion erreur
             break;
@@ -226,12 +268,22 @@ bool E8::transition(Automate &a, Symbole * s) {
  */
 bool E9::transition(Automate &a, Symbole * s) {
     switch (*s) {
-        case PLUS:
-            // r4
+        case PLUS: {
+            a.pileSymboles.pop();
+            Expression *e = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            a.reduction(3, e);
             break;
-        case MULT:
-            // r4
+        }
+        case MULT: {
+            a.pileSymboles.pop();
+            Expression *e = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            a.reduction(3, e);
             break;
+        }
         case FIN: {
             a.pileSymboles.pop();
             Expression *e = (Expression *)a.pileSymboles.top();
@@ -240,9 +292,14 @@ bool E9::transition(Automate &a, Symbole * s) {
             a.reduction(3, e);
             break;
         }
-        case CLOSEPAR:
-            // r4
+        case CLOSEPAR: {
+            a.pileSymboles.pop();
+            Expression *e = (Expression *)a.pileSymboles.top();
+            a.pileSymboles.pop();
+            a.pileSymboles.pop();
+            a.reduction(3, e);
             break;
+        }
         default:
             // gestion erreur
             break;

@@ -20,7 +20,10 @@ void Automate::reduction(int n, Symbole * s) {
 void Automate::lecture() {
     pileEtats.push(new E0);
 
-    while(!pileEtats.top()->transition(*this, lexer->Consulter())) { }
+    while(!pileEtats.top()->transition(*this, lexer->Consulter())) {
+        cout << "Etat: " << *pileEtats.top() << endl;
+        cout << "Symbole: " << *pileSymboles.top() << endl;
+    }
 
     Expression *e = (Expression *)pileSymboles.top();
     cout << e->eval() << endl;

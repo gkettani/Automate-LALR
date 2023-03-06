@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
@@ -18,7 +19,6 @@ class Symbole {
       operator int() const { return ident; }
       friend ostream & operator <<(ostream &os, const Symbole &s) { return s.Print(os); } 
 
-
    protected:
       int ident;
 };
@@ -28,7 +28,12 @@ class Entier : public Symbole {
       Entier(int v) : Symbole(INT), valeur(v) { }
       ~Entier() { }
       int getValeur() const { return valeur; }
-      // ostream& Print(ostream& os) const { return Symbole::Print(os) << ":" << valeur; }
+      ostream& Print(ostream& os) const { 
+         Symbole::Print(os);
+         cout << " -> " << valeur;
+         return os; 
+      }
+
    protected:
       int valeur;
 };

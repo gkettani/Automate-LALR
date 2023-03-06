@@ -19,7 +19,7 @@ void test() {
 
 int main(void) {
 
-   Automate a(new Lexer("(123+34)"));
+   Automate a(new Lexer("(1+24)+(123*2)+58*2"));
    a.lecture();
    a.print();
    
