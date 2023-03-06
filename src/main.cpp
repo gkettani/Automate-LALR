@@ -10,7 +10,7 @@ void test() {
 
    Symbole * s;
    while(*(s=l.Consulter())!=FIN) {
-      s->print();
+      cout<<*s;
       cout<<endl;
       l.Avancer();
    }

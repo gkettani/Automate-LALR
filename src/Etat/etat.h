@@ -11,8 +11,13 @@ class Etat {
     public:
         Etat(string n) : name(n) { }
         virtual ~Etat() { }
-        void print() const;
+        
         virtual bool transition(Automate &a, Symbole * s) = 0;
+
+        friend ostream & operator <<(ostream &os, const Etat &e);
+
+        friend ostream & operator <<(ostream &os, const Etat *e);
+
 
     protected:
         string name;

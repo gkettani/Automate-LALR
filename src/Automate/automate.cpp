@@ -25,5 +25,24 @@ void Automate::lecture() {
     pileEtats.top()->transition(*this, lexer->Consulter());
 
     pileEtats.top()->transition(*this, lexer->Consulter());
+    
+    pileEtats.top()->transition(*this, lexer->Consulter());
+    
+    pileEtats.top()->transition(*this, lexer->Consulter());
+
+    // print the stacks
+    cout << "Etats: ";
+    while (!pileEtats.empty()) {
+        cout << *pileEtats.top() << " ";
+        pileEtats.pop();
+    }
+
+    cout << endl << "Symboles: ";
+    while (!pileSymboles.empty()) {
+        cout << *pileSymboles.top() << " ";
+        pileSymboles.pop();
+    }
+
+    cout << endl;
 }
 

@@ -6,8 +6,9 @@
 
 using namespace std;
 
-void Etat::print() const {
-    cout << name << endl;
+ostream & operator <<(ostream &os, const Etat &e) {
+    os << e.name;
+    return os;
 }
 
 bool E0::transition(Automate &a, Symbole * s) {
