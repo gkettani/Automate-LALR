@@ -1,28 +1,36 @@
 #include <iostream>
+#include <fstream>
+#include <regex>
 #include "Lexer/lexer.h"
 #include "Automate/automate.h"
 
+const string FORMULES_FILE = "formules.txt";
+const string RESULTATS_FILE = "resultats.txt";
 
-void test() {
-   string chaine("(123+34)");
+const regex WHITESPACE_REGEX("[\r\n\\s]+");
 
-   Lexer l(chaine);
+int main()
+{
+    ifstream inputFile(FORMULES_FILE);
+    ofstream outputFile(RESULTATS_FILE);
 
-   Symbole * s;
-   while(*(s=l.Consulter())!=FIN) {
-      cout<<*s;
-      cout<<endl;
-      l.Avancer();
-   }
-}  
+    if (inputFile.is_open() && outputFile.is_open()) {
+        string line;
+        while (getline(inputFile, line)) {
+            line = regex_replace(line, WHITESPACE_REGEX, "");
+            Lexer *lexer = new Lexer(line);
+            Automate automate = Automate(lexer);
+            int result = automate.lecture();
+            outputFile << result << endl;
+        }
+        inputFile.close();
+        outputFile.close();
+        cout << "Formulas evaluated successfully." << endl;
+    }
+    else {
+        cerr << "Unable to open file: " << FORMULES_FILE << " or " << RESULTATS_FILE << endl;
+        return 1;
+    }
 
-
-int main(void) {
-
-   Automate a(new Lexer("(1+24)+(123*2)+58*2"));
-   a.lecture();
-   a.print();
-   
-   return 0;
+    return 0;
 }
-

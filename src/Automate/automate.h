@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stack>
+#include <deque>
 #include "../Lexer/lexer.h"
 #include "../Etat/etat.h"
 using namespace std;
@@ -8,16 +8,19 @@ using namespace std;
 class Automate {
     
     public:
+        Automate() { }
         Automate(Lexer * l) : lexer(l) { }
-        ~Automate() { }
+        ~Automate();
         
         void decalage(Symbole * s, Etat * e);
         void reduction(int n, Symbole * s);
-        void lecture();
+        int lecture();
         void print();
+        Symbole * popSymbol();
+        void popAndDestroySymbol();
 
-    // protected:
+    protected:
         Lexer * lexer;
-        stack<Etat *> pileEtats;
-        stack<Symbole *> pileSymboles;
+        deque<Etat *> pileEtats;
+        deque<Symbole *> pileSymboles;
 };

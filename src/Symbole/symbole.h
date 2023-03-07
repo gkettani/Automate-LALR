@@ -12,6 +12,7 @@ class Symbole {
    public:
       Symbole(int i) : ident(i) {  }
       virtual ~Symbole() { }
+      
       bool isTerminal() const { return ident<EXPR; }
       virtual ostream& Print(ostream& os) const { return os << Etiquettes[ident]; }
 
@@ -27,14 +28,10 @@ class Entier : public Symbole {
    public:
       Entier(int v) : Symbole(INT), valeur(v) { }
       ~Entier() { }
+      
       int getValeur() const { return valeur; }
-      ostream& Print(ostream& os) const { 
-         Symbole::Print(os);
-         cout << " -> " << valeur;
-         return os; 
-      }
+      ostream& Print(ostream& os) const { return os << Etiquettes[ident] << "(" << valeur << ")"; }
 
    protected:
       int valeur;
 };
-

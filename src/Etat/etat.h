@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Symbole/symbole.h"
-#include <string>
 using namespace std;
 
 class Automate;
@@ -13,8 +12,7 @@ class Etat {
         virtual ~Etat() { }
         
         virtual bool transition(Automate &a, Symbole * s) = 0;
-
-        friend ostream & operator <<(ostream &os, const Etat &e);
+        friend ostream & operator <<(ostream &os, const Etat &e) {return os << e.name;}
 
     protected:
         string name;

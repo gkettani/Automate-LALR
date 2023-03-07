@@ -3,8 +3,8 @@
 #include "../Symbole/expression.h"
 
 void Automate::decalage(Symbole * s, Etat * e) {
-    pileEtats.push(e);
-    pileSymboles.push(s);
+    pileEtats.push_back(e);
+    pileSymboles.push_back(s);
     if (s->isTerminal()) {
         lexer->Avancer();
     }
@@ -12,36 +12,54 @@ void Automate::decalage(Symbole * s, Etat * e) {
 
 void Automate::reduction(int n, Symbole * s) {
     for (int i = 0; i < n; i++) {
-        pileEtats.pop();
+        delete pileEtats.back();
+        pileEtats.pop_back();
     }  
-    pileEtats.top()->transition(*this, s);
+    pileEtats.back()->transition(*this, s);
 }
 
-void Automate::lecture() {
-    pileEtats.push(new E0);
+int Automate::lecture() {
+    pileEtats.push_back(new E0);
 
-    while(!pileEtats.top()->transition(*this, lexer->Consulter())) {
-        cout << "Etat: " << *pileEtats.top() << endl;
-        cout << "Symbole: " << *pileSymboles.top() << endl;
+    while(!pileEtats.back()->transition(*this, lexer->Consulter())) { }
+    
+    Expression *e = (Expression *)pileSymboles.back();
+    if (e->isTerminal() || pileSymboles.size() > 1) {
+        cerr << "Error: Expression is not valid." << endl;
+        return -1;
     }
-
-    Expression *e = (Expression *)pileSymboles.top();
-    cout << e->eval() << endl;
+    return e->eval();
 }
 
+Symbole * Automate::popSymbol() {
+    Symbole *e = pileSymboles.back();
+    pileSymboles.pop_back();
+    return e;
+}
+
+void Automate::popAndDestroySymbol() {
+    delete pileSymboles.back();
+    pileSymboles.pop_back();
+}
 
 void Automate::print() {
-    cout << "Etats: ";
-    while (!pileEtats.empty()) {
-        cout << *pileEtats.top() << " ";
-        pileEtats.pop();
+    cout << "Pile d'états : " << endl;
+    for (long unsigned int i = 0; i < pileEtats.size(); i++) {
+        cout << "Etat " << i << " : " << *pileEtats[i] << endl;
+    }
+    cout << "Pile de symboles : " << endl;
+    for (long unsigned int i = 0; i < pileSymboles.size(); i++) {
+        cout << "Symbole " << i << " : " << *pileSymboles[i] << endl;
+    }
+}
+
+Automate::~Automate() {
+    for (auto e : pileEtats) {
+        delete e;
+    }
+    for (auto s : pileSymboles) {
+        delete s;
     }
 
-    cout << endl << "Symboles: ";
-    while (!pileSymboles.empty()) {
-        cout << *pileSymboles.top() << " ";
-        pileSymboles.pop();
-    }
-
-    cout << endl;
+    delete lexer;
 }

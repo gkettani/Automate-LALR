@@ -18,6 +18,7 @@ print:
 $(EXEC): $(OBJS)
 	mkdir -p $(@D)
 	$(CC) -g -o $@ $^ $(CXXFLAGS) $(WARNING)
+	@echo "Build complete! Run with ./bin/main"
 
 build/%.o: src/%.cpp
 	mkdir -p $(@D)
