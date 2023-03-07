@@ -18,8 +18,7 @@ int main()
         string line;
         while (getline(inputFile, line)) {
             line = regex_replace(line, WHITESPACE_REGEX, "");
-            Lexer *lexer = new Lexer(line);
-            Automate automate = Automate(lexer);
+            Automate automate = Automate(new Lexer(line));
             int result = automate.lecture();
             outputFile << result << endl;
         }
