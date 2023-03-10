@@ -22,10 +22,13 @@ int Automate::lecture() {
     pileEtats.push_back(new E0);
 
     while(!pileEtats.back()->transition(*this, lexer->Consulter())) { }
+
+    if (pileSymboles.empty()) {
+        return -1;
+    }
     
     Expression *e = (Expression *)pileSymboles.back();
     if (e->isTerminal() || pileSymboles.size() > 1) {
-        cerr << "Error: Expression is not valid." << endl;
         return -1;
     }
     return e->eval();

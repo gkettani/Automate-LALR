@@ -20,11 +20,15 @@ int main()
             line = regex_replace(line, WHITESPACE_REGEX, "");
             Automate automate = Automate(new Lexer(line));
             int result = automate.lecture();
-            outputFile << result << endl;
+            if (result == -1) {
+                outputFile << "Expression Error : " << line << " is not valid." << endl;
+            } else {
+                outputFile << result << endl;
+            }       
         }
         inputFile.close();
         outputFile.close();
-        cout << "Formulas evaluated successfully." << endl;
+        cout << "All expressions have been evaluated. Check resultats.txt" << endl;
     }
     else {
         cerr << "Unable to open file: " << FORMULES_FILE << " or " << RESULTATS_FILE << endl;

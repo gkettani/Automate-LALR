@@ -30,16 +30,15 @@ Il est possible d'ajouter des formules dans le fichier *formules.txt*. Chaque fo
 ```
 
 ## Résultat
-Le résultat de l'automate sera afficher dans un fichier *resultat.txt*.
-> Lorsqu'une expression est incorrect la valeur de retour est -1  
+Le résultat de l'automate sera afficher dans un fichier *resultat.txt*. 
 
 Ainsi l'exemple précédant donnera comme résultat 
 ```{txt}
 3
--1
+Expression Error : 3+5() is not valid.
 403
 163
 109
--1
+Expression Error : 8* is not valid.
 3
 ```
