@@ -1,24 +1,24 @@
-# Analyse syntaxique et évaluation d'une expression arithmétique
+# Syntax Analysis and Evaluation of an Arithmetic Expression
 
-Automate LALR permettant l'analyse de la grammaire suivante
+LALR Automaton for analyzing the following grammar:
 ```
 1. E' -> E
 2. E -> E + E
 3. E -> E * E
 4. E -> ( E )
-5. E -> val 
+5. E -> val
 ```
 
-## Utilisation 
-1. Executer la commande: ```make```
-2. Lancer l'analyseur avec la commande: ```./bin/main```
+## Usage
+1. Execute the command: ```make```
+2. Run the parser with the command: ```./bin/main```
 
-## Test des formules
-Il est possible d'ajouter des formules dans le fichier *formules.txt*. Chaque formule est écrite sur une ligne séparée.  
+## Testing Formulas
+You can add formulas to the *formules.txt* file. Each formula should be written on a separate line.
 
-> /!\ Il ne doit pas y avoir de ligne vide dans le fichier
+> /!\ There should be no empty lines in the file.
 
-### Exemple de fichier formules.txt
+### Example of a formules.txt file
 ```{txt}
 1+2
 3+5()
@@ -29,16 +29,16 @@ Il est possible d'ajouter des formules dans le fichier *formules.txt*. Chaque fo
 3
 ```
 
-## Résultat
-Le résultat de l'automate sera afficher dans un fichier *resultat.txt*. 
+## Result
+The automaton's result will be displayed in the *resultat.txt* file.
 
-Ainsi l'exemple précédant donnera comme résultat 
+For example, the above input will produce the following output:
 ```{txt}
 3
-Expression Error : 3+5() is not valid.
+Expression Error: 3+5() is not valid.
 403
 163
 109
-Expression Error : 8* is not valid.
+Expression Error: 8* is not valid.
 3
 ```
